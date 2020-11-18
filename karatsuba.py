@@ -1,51 +1,28 @@
-from math import floor, ceil
 
+def karatsuba(x, y):
+    lx = len(x)
+    ly = len(y)
 
-def karatsuba(x, y, n):
-    if n == 1:
-        return x * y
+    if lx < 2 or ly < 2:
+        return int(x) * int(y)
+    n = lx
 
-    m = ceil(n / 2)
+    if(ly > lx):
+        x = x.zfill(ly)
+        n = ly
+    if(lx > ly):
+        y = y.zfill(lx)
+        n = lx
 
-    a = floor(x / 10**m)
-    b = x % 10**m
+    m = int(n/2)
 
-    c = floor(y / 10**m)
-    d = y % 10**m
+    a = x[0:n-m]
+    b = x[n-m:n]
+    c = y[0:n-m]
+    d = y[n-m:n]
 
-    e = karatsuba(a, c, m)
-    f = karatsuba(b, d, m)
-
-    g = karatsuba(b, c, m)
-    h = karatsuba(a, d, m)
-
-    return int(10**(2*m)*e + 10**m * (g + h) + f)
-
-
-def karatsuba_mult(x, y):
-
-    n = len(x) if len(x) >= len(y) else len(y)
-    return karatsuba(int(x), int(y), n)
-
-
-def naive_mult(x, y):
-    return "to be implemented"
-
-
-def multiply(t, x, y):
-    if t == 'D':
-        return naive_mult(x, y)
-    elif t == 'B':
-        return karatsuba_mult(x, y)
-
-
-def main():
-    #t = input("Enter type:")
-    x = input("Enter first number:")
-    y = input("Enter second number:")
-    print(karatsuba_mult(x, y))
-    #print(multiply(t, x, y))
-
-
-if __name__ == "__main__":
-    main()
+    e = karatsuba(a, c)
+    f = karatsuba(b, d)
+    g = karatsuba(b, c)
+    h = karatsuba(a, d)
+    return 10**(2 * m)*e + (10**m) * (g+h) + f
