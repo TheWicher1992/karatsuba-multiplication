@@ -34,12 +34,12 @@ def karatsuba(x, y):
 
     t2 = e.ljust(len(e)+t1, '0')     # 10**(t1)*e
 
-    t3 = add.findSum(g, h)               # (g+h)
+    t3 = str(int(g) + int(h))  #add.add(g, h)               # (g+h)
 
     t4 = t3.ljust(len(t3)+m, '0')  # (10**m) * (t3)
 
-    t5 = add.findSum(t2, t4)
+    t5 = str(int(t2) + int(t4)) #add.add(t2, t4)
 
-    t6 = add.findSum(t5, f)
+    t6 = str(int(t5) + int(f)) #add.add(t5, f)
 
     return t6

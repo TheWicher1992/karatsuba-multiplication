@@ -1,47 +1,29 @@
-def findSum(str1, str2):
+from math import floor
+def add(x,y):
+    lx = len(x)
+    ly = len(y)
+    n = lx
+    if(ly > lx):
+        x = x.zfill(ly)
+        n = ly
+    if(lx > ly):
+        y = y.zfill(lx)
+        n = lx
+    
+    result = ''
+    r = 0
+    q = 0
+    for i in range(n - 1, -1, -1):
+        val = int(x[i]) + int(y[i]) + q
+        r = int(val % 10)
+        q = floor(val / 10)
+        if i == 0:
+            result = str(val) + result
+            break
+        result = str(r) + result
+    
+    return result
 
-    # Before proceeding further,
-    # make sure length of str2 is larger.
-    if (len(str1) > len(str2)):
-        t = str1
-        str1 = str2
-        str2 = t
 
-    # Take an empty string for
-    # storing result
-    str = ""
+ 
 
-    # Calculate length of both string
-    n1 = len(str1)
-    n2 = len(str2)
-
-    # Reverse both of strings
-    str1 = str1[::-1]
-    str2 = str2[::-1]
-
-    carry = 0
-    for i in range(n1):
-
-        # Do school mathematics, compute
-        # sum of current digits and carry
-        sum = ((ord(str1[i]) - 48) +
-               ((ord(str2[i]) - 48) + carry))
-        str += chr(sum % 10 + 48)
-
-        # Calculate carry for next step
-        carry = int(sum / 10)
-
-    # Add remaining digits of larger number
-    for i in range(n1, n2):
-        sum = ((ord(str2[i]) - 48) + carry)
-        str += chr(sum % 10 + 48)
-        carry = (int)(sum / 10)
-
-    # Add remaining carry
-    if (carry):
-        str += chr(carry + 48)
-
-    # reverse resultant string
-    str = str[::-1]
-
-    return str
