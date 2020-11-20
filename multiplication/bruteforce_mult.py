@@ -1,12 +1,14 @@
 from math import floor
+from multiplication.add import findSum
 def brute_mult(x,y):
     lx = len(x)
     ly = len(y)
-    result = 0
-    val = 0
-    
+    result = '0'
+    val = ''
+
     for ix in range(lx-1,-1,-1):
         for iy in range(ly-1,-1,-1):
-            val = int(x[ix]) * int(y[iy])
-            result = result + (int(val)) * ( 10 ** ((lx - ix - 1) + (ly - iy - 1)))
+            val = str(int(x[ix]) * int(y[iy]))
+            t1 = val.ljust(len(val) + ((lx - ix - 1) + (ly - iy - 1)), '0')
+            result = findSum(result,t1)
     return result
