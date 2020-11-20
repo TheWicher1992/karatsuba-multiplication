@@ -1,5 +1,4 @@
-
-from multiplication.add import findSum
+from multiplication import add
 
 
 def karatsuba(x, y):
@@ -24,21 +23,23 @@ def karatsuba(x, y):
     c = y[0:n-m]
     d = y[n-m:n]
 
-    e = str(karatsuba(a, c))
-    f = str(karatsuba(b, d))
-    g = str(karatsuba(b, c))
-    h = str(karatsuba(a, d))
+    e = str(int(karatsuba(a, c)))
+    f = str(int(karatsuba(b, d)))
+    g = str(int(karatsuba(b, c)))
+    h = str(int(karatsuba(a, d)))
 
-    t1 = karatsuba(str(2),str(m))             # 2 * m
+    # return 10**(2*m)*e + 10**m*(g+h) + f
+   # print(e, f, g, h)
+    t1 = 2*m            # 2 * m
 
-    t2 = e.ljust(len(e)+t1,'0')     # 10**(t1)*e
+    t2 = e.ljust(len(e)+t1, '0')     # 10**(t1)*e
 
-    t3 = findSum(g,h)               # (g+h) 
+    t3 = add.findSum(g, h)               # (g+h)
 
-    t4 = t3.ljust(len(t3)+m,'0')  #(10**m) * (t3)
+    t4 = t3.ljust(len(t3)+m, '0')  # (10**m) * (t3)
 
-    t5 = findSum(t2,t4)
+    t5 = add.findSum(t2, t4)
 
-    t6 = findSum(t5, f)
+    t6 = add.findSum(t5, f)
 
     return t6
