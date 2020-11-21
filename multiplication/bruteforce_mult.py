@@ -1,5 +1,5 @@
 from math import floor
-from multiplication import add
+from multiplication.util import add
 
 
 def brute_mult(x, y):
@@ -12,5 +12,5 @@ def brute_mult(x, y):
         for iy in range(ly-1, -1, -1):
             val = str(int(x[ix]) * int(y[iy]))
             t1 = val.ljust(len(val) + ((lx - ix - 1) + (ly - iy - 1)), '0')
-            result = str(int(result) + int(t1)) #add.add(result, t1)
+            result = add(result, t1)
     return result

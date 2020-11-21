@@ -1,12 +1,12 @@
-from multiplication import add
-
+from multiplication.util import add
+from multiplication.util import sub
 
 def karatsuba(x, y):
     lx = len(x)
     ly = len(y)
 
     if lx < 2 or ly < 2:
-        return int(x) * int(y)
+        return str(int(x) * int(y))
     n = lx
 
     if(ly > lx):
@@ -23,23 +23,18 @@ def karatsuba(x, y):
     c = y[0:n-m]
     d = y[n-m:n]
 
-    e = str(int(karatsuba(a, c)))
-    f = str(int(karatsuba(b, d)))
-    g = str(int(karatsuba(b, c)))
-    h = str(int(karatsuba(a, d)))
+    e = karatsuba(a, c)
+    f = karatsuba(b, d)
+    g = karatsuba(add(a,b), add(c,d))
 
-    # return 10**(2*m)*e + 10**m*(g+h) + f
-   # print(e, f, g, h)
-    t1 = 2*m            # 2 * m
+    t1 = e.ljust(len(e) + (2*m), '0')   # 10**(2*m)*e
 
-    t2 = e.ljust(len(e)+t1, '0')     # 10**(t1)*e
+    t2 = sub(g,add(f,e))        # g - f - e
 
-    t3 = str(int(g) + int(h))  #add.add(g, h)               # (g+h)
+    t3 = t2.ljust(len(t2) + m, '0')     # 10**m*(g - f - e)
 
-    t4 = t3.ljust(len(t3)+m, '0')  # (10**m) * (t3)
+    t4 = add(t3, f)                 # 10**m*(g - f - e) + f
 
-    t5 = str(int(t2) + int(t4)) #add.add(t2, t4)
-
-    t6 = str(int(t5) + int(f)) #add.add(t5, f)
-
-    return t6
+    t5 = add(t1, t4)                # 10**(2*m)*e + 10**m*(e + f - g) + f
+    
+    return t5
